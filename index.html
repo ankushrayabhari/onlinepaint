@@ -18,7 +18,23 @@
 
       <canvas width="1520" height="720" id="canvas"></canvas>
 
-      <div id="toolmodal"></div>
+      <div id="colormodal" class="modal">
+        <form>
+          Select Color:  <input id="color" class="color {hash:true}">
+        <form>
+        <a id="close">Close</a>
+      </div>
+
+      <div id="backgroundmodal" class="modal">
+        <form>
+          Select Background: <input id="background" type="text">
+          <br/>Some sites may not support embedding.
+        </form>
+        <br/>
+        <a id="bclose">Close</a>
+      </div>
+
+      <script src="libs/jscolor.js"
       <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
       <script src="scripts/scripts.js"></script>
   </body>
