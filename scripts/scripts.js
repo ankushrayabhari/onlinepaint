@@ -31,17 +31,17 @@ document.getElementById("saveimage").onclick = function() {
   window.open(canvas.toDataURL());
 }
 document.getElementById("colorselect").onclick = function(e) {
-  document.getElementById("colormodal").style.display = "block";
+  openModal("colormodal")
 }
 document.getElementById("close").onclick = function(e) {
   color = document.getElementById("color").value
-  document.getElementById("colormodal").style.display = "none";
+  closeModal("colormodal");
 }
 document.getElementById("addbackground").onclick = function(e) {
   if(!backgroundSet) {
     document.getElementById("background").value = null;
   }
-  document.getElementById("backgroundmodal").style.display = "block";
+  openModal("backgroundmodal");
 }
 document.getElementById("bclose").onclick = function() {
   var img = new Image();
@@ -55,6 +55,17 @@ document.getElementById("bclose").onclick = function() {
     backgroundSet = true;
   }
   img.src = document.getElementById("background").value;
-  document.getElementById("backgroundmodal").style.display = "none";
+  closeModal("backgroundmodal");
   document.getElementById("background").value = null;
+}
+
+
+function openModal(id) {
+  canvas.style.pointerEvents = "none";
+  document.getElementById(id).style.display = "block";
+}
+
+function closeModal(id) {
+  canvas.style.pointerEvents = "auto";
+  document.getElementById(id).style.display = "none";
 }
