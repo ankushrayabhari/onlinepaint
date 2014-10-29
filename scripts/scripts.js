@@ -1,8 +1,16 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext('2d');
-var isDrawing;
-var color;
+var isDrawing, color, bgSrc;
 var backgroundSet = false;
+
+var clrCanvas = document.getElementById("clearcanvas");
+var saveImg = document.getElementById("saveimage");
+var clrSelect = document.getElementById("colorselect");
+var clrClose = document.getElementById("close");
+var bgClose = document.getElementById("bclose");
+var addbg = document.getElementById("addbackground");
+var bgInput = document.getElementById("background");
+
 ctx.fillCircle = function(x, y, radius, fillColor) {
   this.fillStyle = fillColor;
   this.beginPath();
@@ -23,40 +31,41 @@ canvas.addEventListener("mousemove", function(e){
 }, false);
 
 
-document.getElementById("clearcanvas").onclick = function() {
+clrCanvas.onclick = function() {
   backgroundSet = false;
   ctx.clearRect(0,0,canvas.width, canvas.height);
 }
-document.getElementById("saveimage").onclick = function() {
+saveImg.onclick = function() {
   window.open(canvas.toDataURL());
 }
-document.getElementById("colorselect").onclick = function(e) {
+clrSelect.onclick = function(e) {
   openModal("colormodal")
 }
-document.getElementById("close").onclick = function(e) {
+clrClose.onclick = function(e) {
   color = document.getElementById("color").value
   closeModal("colormodal");
 }
-document.getElementById("addbackground").onclick = function(e) {
+addbg.onclick = function(e) {
   if(!backgroundSet) {
     document.getElementById("background").value = null;
   }
   openModal("backgroundmodal");
 }
-document.getElementById("bclose").onclick = function() {
+bgClose.onclick = function() {
   var img = new Image();
-  img.crossOrigin = "Anonymous";
   img.onload = function() {
+    if(backgroundSet) {
+      ctx.clearRect(0,0,canvas.width, canvas.height);
+    }
     var canvasImage = new Image();
     canvasImage.src = canvas.toDataURL();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    ctx.drawImage(canvasImage, 0, 0,canvas.width, canvas.height);
+    ctx.drawImage(canvasImage, 0, 0, canvas.width, canvas.height);
     backgroundSet = true;
   }
-  img.src = document.getElementById("background").value;
+  img.src = bgSrc;
   closeModal("backgroundmodal");
-  document.getElementById("background").value = null;
 }
 
 
@@ -69,3 +78,15 @@ function closeModal(id) {
   canvas.style.pointerEvents = "auto";
   document.getElementById(id).style.display = "none";
 }
+
+bgInput.addEventListener("change", function() {
+  var reader = new FileReader();
+  var file = bgInput.files[0];
+
+  reader.onloadend = function() {
+    bgSrc = reader.result;
+  }
+
+  reader.readAsDataURL(file);
+
+}, false);
