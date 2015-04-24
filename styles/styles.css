@@ -53,9 +53,6 @@ nav ul li a h3 {
   padding: 1em;
 }
 
-a#logo {
-  font-family: 'Playball';
-}
 a#logo:hover {
   background-color: #72a0c1;
   color: white;

@@ -1,4 +1,8 @@
 var canvas = document.getElementById("canvas");
+var width = window.innerWidth*0.8;
+var height = window.innerHeight*0.5;
+canvas.width = width;
+canvas.height = height;
 var ctx = canvas.getContext('2d');
 var isDrawing, color, bgSrc;
 var backgroundSet = false;
