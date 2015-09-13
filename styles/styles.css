@@ -9,6 +9,7 @@ html, body {
   text-align: center;
   overflow: hidden;
   color: white;
+  user-select: none;
   -webkit-user-select: none; /* Chrome/Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+ */
@@ -37,6 +38,7 @@ nav ul li a {
 nav ul li a:hover {
   color: #72a0c1;
   background-color: white;
+  cursor: pointer;
 }
 
 canvas {
